@@ -6,9 +6,13 @@ import ubb.postuniv.riddingaddict.model.enums.AccessoryType;
 import ubb.postuniv.riddingaddict.model.enums.BikeType;
 import ubb.postuniv.riddingaddict.model.enums.ProductCategory;
 
+import java.time.LocalDate;
+
 public class ProductFactory {
 
-    public static Product getProduct(ProductCategory category, String name, double price, int quantity, String shortDescription, BikeType bikeType, AccessoryType accessoryType) {
+    private ProductFactory() {}
+
+    public static Product getProductRequest(ProductCategory category, String name, double price, int quantity, String shortDescription, BikeType bikeType, AccessoryType accessoryType) {
 
         switch (category) {
 
@@ -17,6 +21,20 @@ public class ProductFactory {
 
             case ACCESSORY:
                 return new Accessory(name, price, quantity, shortDescription, category, accessoryType);
+
+            default:
+                throw new ItemNotFoundException("Product category not found");
+        }
+    }
+    public static Product getProductResponse(String productCode, ProductCategory category, String name, double price, int quantity, String shortDescription, LocalDate dateAdded, BikeType bikeType, AccessoryType accessoryType) {
+
+        switch (category) {
+
+            case BIKE:
+                return new Bike(productCode, name, price, quantity, shortDescription, category, dateAdded, bikeType);
+
+            case ACCESSORY:
+                return new Accessory(productCode, name, price, quantity, shortDescription, category, dateAdded, accessoryType);
 
             default:
                 throw new ItemNotFoundException("Product category not found");

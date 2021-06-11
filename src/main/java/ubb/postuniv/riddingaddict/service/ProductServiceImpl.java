@@ -7,6 +7,7 @@ import ubb.postuniv.riddingaddict.model.enums.ProductCategory;
 import ubb.postuniv.riddingaddict.model.pojo.Product;
 import ubb.postuniv.riddingaddict.repository.ProductRepository;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -18,13 +19,14 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public void addProduct(Product product) {
 
+        product.setDateAdded(LocalDate.now());
         productRepository.save(product);
     }
 
     @Override
-    public Product findOneProduct(Long id) {
+    public Product findOneProduct(String productCode) {
 
-        Product product = productRepository.findById(id).orElseThrow(() ->
+        Product product = productRepository.findByProductCode(productCode).orElseThrow(() ->
                 new ItemNotFoundException("The product id does not exist"));
 
         return product;

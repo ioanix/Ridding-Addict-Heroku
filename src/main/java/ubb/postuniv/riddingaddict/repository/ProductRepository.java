@@ -8,9 +8,11 @@ import ubb.postuniv.riddingaddict.model.pojo.Product;
 
 import javax.transaction.Transactional;
 import java.util.List;
-
+import java.util.Optional;
 
 public interface ProductRepository extends JpaRepository<Product, Long> {
+
+    Optional<Product> findByProductCode(String productCode);
 
     @Transactional
     @Modifying

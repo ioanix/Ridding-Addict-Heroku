@@ -2,11 +2,13 @@ package ubb.postuniv.riddingaddict.controller;
 
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ubb.postuniv.riddingaddict.mapper.Mapper;
-import ubb.postuniv.riddingaddict.model.dto.ProductDTO;
+import ubb.postuniv.riddingaddict.model.dto.ProductDTORequest;
+import ubb.postuniv.riddingaddict.model.dto.ProductDTOResponse;
 import ubb.postuniv.riddingaddict.model.enums.ProductCategory;
 import ubb.postuniv.riddingaddict.model.pojo.Product;
 import ubb.postuniv.riddingaddict.model.validator.Validator;
@@ -15,63 +17,69 @@ import ubb.postuniv.riddingaddict.service.ProductService;
 import java.util.List;
 
 @RestController
+@RequestMapping("/api")
 @Log4j2
+@CrossOrigin(origins = "*")
 public class ProductController {
 
     @Autowired
     private ProductService productService;
 
     @Autowired
-    private Mapper<Product, ProductDTO> productMapper;
+    private Mapper<Product, ProductDTORequest> productRequestMapper;
 
     @Autowired
+    private Mapper<Product, ProductDTOResponse> productResponseMapper;
+
+    @Autowired
+    @Qualifier("productCategoryValidator")
     private Validator<String> categoryValidator;
 
 
     @GetMapping("/products")
-    public ResponseEntity<List<ProductDTO>> getAllProducts() {
+    public ResponseEntity<List<ProductDTOResponse>> showAllProducts() {
 
         List<Product> products = productService.getAll();
         log.info("getAllProducts = {}", products);
 
-        return new ResponseEntity<>(productMapper.convertModelsToDtos(products), HttpStatus.OK);
+        return new ResponseEntity<>(productResponseMapper.convertModelsToDtos(products), HttpStatus.OK);
     }
 
     @GetMapping("/products/descByPrice")
-    public ResponseEntity<List<ProductDTO>> showProductsOrderedByPriceDesc() {
+    public ResponseEntity<List<ProductDTORequest>> showProductsOrderedByPriceDesc() {
 
         List<Product> products = productService.getProductsOrderedByPriceDesc();
         log.info("getAllProductsOrderedByPriceDesc = {}", products);
 
-        return new ResponseEntity<>(productMapper.convertModelsToDtos(products), HttpStatus.OK);
+        return new ResponseEntity<>(productRequestMapper.convertModelsToDtos(products), HttpStatus.OK);
     }
 
     @GetMapping("/products/categories/{category}")
-    public ResponseEntity<List<ProductDTO>> getProductsByCategory(@PathVariable String category) {
+    public ResponseEntity<List<ProductDTORequest>> showProductsByCategory(@PathVariable String category) {
 
         categoryValidator.validate(category);
 
         List<Product> productsByCategory = productService.findProductByCategory(ProductCategory.valueOf(category.toUpperCase()));
         log.info("getProductsByCategory = {}", productsByCategory);
 
-        return new ResponseEntity<>(productMapper.convertModelsToDtos(productsByCategory), HttpStatus.OK);
+        return new ResponseEntity<>(productRequestMapper.convertModelsToDtos(productsByCategory), HttpStatus.OK);
     }
 
-    @GetMapping("/products/{id}")
-    public ResponseEntity<ProductDTO> getOneProduct(@PathVariable Long id) {
+    @GetMapping("/products/{productCode}")
+    public ResponseEntity<ProductDTOResponse> showOneProduct(@PathVariable String productCode) {
 
-        Product product = productService.findOneProduct(id);
+        Product product = productService.findOneProduct(productCode);
         log.info("productDto = {}", product);
 
-        return new ResponseEntity<>(productMapper.convertModelToDto(product), HttpStatus.OK);
+        return new ResponseEntity<>(productResponseMapper.convertModelToDto(product), HttpStatus.OK);
     }
 
     @PostMapping("/products")
-    public ResponseEntity<ProductDTO> addProduct(@RequestBody ProductDTO productDto) {
+    public ResponseEntity<ProductDTORequest> addProduct(@RequestBody ProductDTORequest productDtoRequest) {
 
-        log.info("productDto = {}", productDto);
-        productService.addProduct(productMapper.convertDtoToModel(productDto));
+        log.info("productDto = {}", productDtoRequest);
+        productService.addProduct(productRequestMapper.convertDtoToModel(productDtoRequest));
 
-        return new ResponseEntity<>(productDto, HttpStatus.OK);
+        return new ResponseEntity<>(productDtoRequest, HttpStatus.OK);
     }
 }

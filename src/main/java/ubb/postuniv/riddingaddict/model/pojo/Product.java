@@ -1,6 +1,5 @@
 package ubb.postuniv.riddingaddict.model.pojo;
 
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -8,7 +7,8 @@ import lombok.Setter;
 import ubb.postuniv.riddingaddict.model.enums.ProductCategory;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.time.LocalDate;
+import java.util.UUID;
 
 @Entity
 @Table(name = "products")
@@ -18,6 +18,9 @@ import java.util.Date;
 @Getter
 @Setter
 public abstract class Product extends BaseEntity<Long> {
+
+    @Column(unique = true)
+    private String productCode;
 
     @Column(nullable = false)
     private String name;
@@ -34,11 +37,12 @@ public abstract class Product extends BaseEntity<Long> {
     @Column(nullable = false)
     private ProductCategory category;
 
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(nullable = false)
-    private Date dateAdded;
+    @Column(name = "date_added")
+    private LocalDate dateAdded;
+
 
     public Product(String name, double price, int quantity, String shortDescription, ProductCategory category) {
+        this.productCode = String.valueOf(UUID.randomUUID());
         this.name = name;
         this.price = price;
         this.quantity = quantity;

@@ -7,6 +7,9 @@ import ubb.postuniv.riddingaddict.model.enums.BikeType;
 import ubb.postuniv.riddingaddict.model.enums.ProductCategory;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import java.time.LocalDate;
 
 @Entity
 @Getter
@@ -14,10 +17,16 @@ import javax.persistence.Entity;
 @NoArgsConstructor
 public class Bike extends Product {
 
+    @Enumerated(EnumType.STRING)
     private BikeType bikeType;
 
     public Bike(String name, double price, int quantity, String shortDescription, ProductCategory category, BikeType bikeType) {
         super(name, price, quantity, shortDescription, category);
+        this.bikeType = bikeType;
+    }
+
+    public Bike(String productCode, String name, double price, int quantity, String shortDescription, ProductCategory category, LocalDate dateAdded, BikeType bikeType) {
+        super(productCode, name, price, quantity, shortDescription, category, dateAdded);
         this.bikeType = bikeType;
     }
 }

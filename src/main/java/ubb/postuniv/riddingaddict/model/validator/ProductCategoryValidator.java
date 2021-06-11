@@ -6,7 +6,7 @@ import ubb.postuniv.riddingaddict.model.enums.ProductCategory;
 
 import java.util.Arrays;
 
-@Component
+@Component("productCategoryValidator")
 public class ProductCategoryValidator implements Validator<String> {
 
     @Override

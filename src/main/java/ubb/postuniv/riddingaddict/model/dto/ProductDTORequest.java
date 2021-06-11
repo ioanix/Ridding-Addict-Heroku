@@ -10,7 +10,7 @@ import ubb.postuniv.riddingaddict.model.enums.ProductCategory;
 @NoArgsConstructor
 @Getter
 @EqualsAndHashCode
-public class ProductDTO {
+public class ProductDTORequest {
 
     private String name;
     private double price;
@@ -21,7 +21,7 @@ public class ProductDTO {
     private BikeType bikeType;
     private AccessoryType accessoryType;
 
-    private ProductDTO(ProductDTOBuilder builder) {
+    private ProductDTORequest(ProductDTORequestBuilder builder) {
         this.name = builder.name;
         this.price = builder.price;
         this.quantity = builder.quantity;
@@ -32,7 +32,7 @@ public class ProductDTO {
         this.accessoryType = builder.accessoryType;
     }
 
-    public static class ProductDTOBuilder {
+    public static class ProductDTORequestBuilder {
 
         private final String name;
         private final double price;
@@ -44,8 +44,7 @@ public class ProductDTO {
         private AccessoryType accessoryType;
 
 
-        public ProductDTOBuilder(String name, double price, int quantity, String shortDescription, ProductCategory category) {
-
+        public ProductDTORequestBuilder(String name, double price, int quantity, String shortDescription, ProductCategory category) {
             this.name = name;
             this.price = price;
             this.quantity = quantity;
@@ -53,22 +52,22 @@ public class ProductDTO {
             this.category = category;
         }
 
-        public ProductDTOBuilder bikeType(BikeType bikeType) {
+        public ProductDTORequestBuilder bikeType(BikeType bikeType) {
 
             this.bikeType = bikeType;
             return this;
         }
 
-        public ProductDTOBuilder accessoryType(AccessoryType accessoryType) {
+        public ProductDTORequestBuilder accessoryType(AccessoryType accessoryType) {
 
             this.accessoryType = accessoryType;
             return this;
         }
 
-        public ProductDTO build() {
+        public ProductDTORequest build() {
 
-            ProductDTO productDTO = new ProductDTO(this);
-            return productDTO;
+            ProductDTORequest productDTORequest = new ProductDTORequest(this);
+            return productDTORequest;
         }
     }
 }
