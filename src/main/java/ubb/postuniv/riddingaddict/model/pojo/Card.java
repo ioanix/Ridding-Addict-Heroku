@@ -24,7 +24,6 @@ public class Card {
     //@Convert(converter = YearMonthDateAttributeConverter.class)
     private YearMonth expirationDate;
 
-    @Enumerated(EnumType.STRING)
     private CardType cardType;
 
     public Card(String cardHolderName, String cardNumber, int cvvCode, YearMonth expirationDate, CardType cardType) {

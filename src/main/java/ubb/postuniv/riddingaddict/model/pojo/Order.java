@@ -15,11 +15,10 @@ import java.util.*;
 @NoArgsConstructor
 public abstract class Order extends BaseEntity<Long> {
 
-    @OneToMany
+    @ManyToMany
     private List<Product> products = new ArrayList<>();
 
-    @Column(name = "product_id")
-    @ElementCollection(targetClass = Long.class)
+   @Transient
     private Set<Long> productIds = new HashSet<>();
 
     @ManyToOne

@@ -8,6 +8,7 @@ import lombok.Setter;
 import ubb.postuniv.riddingaddict.model.enums.ProductCategory;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 @Table(name = "products")
@@ -33,4 +34,15 @@ public abstract class Product extends BaseEntity<Long> {
     @Column(nullable = false)
     private ProductCategory category;
 
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(nullable = false)
+    private Date dateAdded;
+
+    public Product(String name, double price, int quantity, String shortDescription, ProductCategory category) {
+        this.name = name;
+        this.price = price;
+        this.quantity = quantity;
+        this.shortDescription = shortDescription;
+        this.category = category;
+    }
 }
