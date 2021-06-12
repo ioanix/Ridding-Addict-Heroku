@@ -32,13 +32,13 @@ public class ApiExceptionHandler {
         return new ResponseEntity<>(apiException, HttpStatus.NOT_FOUND);
     }
 
-    @ExceptionHandler(value = {Exception.class})
-    public ResponseEntity<Object> handleException(Exception e) {
-
-        ApiException apiException = new ApiException(e.getMessage(), HttpStatus.NOT_FOUND, ZonedDateTime.now());
-
-        log.error("exception = {}", apiException.getMessage());
-
-        return new ResponseEntity<>(apiException, HttpStatus.NOT_FOUND);
-    }
+//    @ExceptionHandler(value = {Exception.class})
+//    public ResponseEntity<Object> handleException(Exception e) {
+//
+//        ApiException apiException = new ApiException(e.getMessage(), HttpStatus.NOT_FOUND, ZonedDateTime.now());
+//
+//        log.error("exception = {}", apiException.getMessage());
+//
+//        return new ResponseEntity<>(apiException, HttpStatus.NOT_FOUND);
+//    }
 }

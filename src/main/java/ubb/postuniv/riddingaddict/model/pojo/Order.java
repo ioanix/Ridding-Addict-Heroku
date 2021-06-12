@@ -19,7 +19,7 @@ public abstract class Order extends BaseEntity<Long> {
     private List<Product> products = new ArrayList<>();
 
     @Transient
-    private Set<Long> productIds = new HashSet<>();
+    private Set<String> productCodes = new HashSet<>();
 
     @ManyToOne
     @JoinColumn(name = "app_user_id")
@@ -40,5 +40,10 @@ public abstract class Order extends BaseEntity<Long> {
     private void onCreate() {
 
         timestamp = new Date();
+    }
+
+    public Order(Set<String> productCodes, Card card) {
+        this.productCodes = productCodes;
+        this.card = card;
     }
 }
