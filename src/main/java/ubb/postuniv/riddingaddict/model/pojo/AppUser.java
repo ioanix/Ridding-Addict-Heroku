@@ -6,10 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -45,4 +42,24 @@ public class AppUser extends BaseEntity<Long> {
             inverseJoinColumns = @JoinColumn(
                     name = "role_id", referencedColumnName = "id"))
     private Set<Role> roles = new HashSet<>();
+
+    public AppUser(String firstName, String lastName, String username, String email, String password, Set<Role> roles) {
+        this.userCode = String.valueOf(UUID.randomUUID());
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.username = username;
+        this.email = email;
+        this.password = password;
+        this.roles = roles;
+    }
+
+    public AppUser(String userCode, String firstName, String lastName, String username, String email, List<Product> products, Set<Role> roles) {
+        this.userCode = userCode;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.username = username;
+        this.email = email;
+        this.products = products;
+        this.roles = roles;
+    }
 }

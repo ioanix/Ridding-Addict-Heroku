@@ -18,7 +18,7 @@ public abstract class Order extends BaseEntity<Long> {
     @ManyToMany
     private List<Product> products = new ArrayList<>();
 
-   @Transient
+    @Transient
     private Set<Long> productIds = new HashSet<>();
 
     @ManyToOne
