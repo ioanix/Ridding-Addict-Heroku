@@ -1,5 +1,6 @@
 package ubb.postuniv.riddingaddict.controller;
 
+import io.swagger.annotations.ApiParam;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -41,7 +42,7 @@ public class AppUserController {
     }
 
     @DeleteMapping("/users/{userCode}")
-    public void removeUser(@PathVariable String userCode){
+    public void removeUser(@ApiParam(value = "The user's unique identification code", required = true) @PathVariable String userCode){
 
         log.info("userCode = {}", userCode);
 
@@ -58,7 +59,7 @@ public class AppUserController {
     }
 
     @PutMapping("/users/update/{userCode}")
-    public void updateUser(@RequestBody AppUserDTORequest appUserDTORequest, @PathVariable String userCode){
+    public void updateUser(@RequestBody AppUserDTORequest appUserDTORequest, @ApiParam(value = "The user's unique identification code", required = true) @PathVariable String userCode){
 
         log.info("userCode = {}", userCode);
         log.info("appUserDto = {}", appUserDTORequest);

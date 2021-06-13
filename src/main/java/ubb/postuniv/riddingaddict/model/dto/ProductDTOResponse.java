@@ -1,5 +1,6 @@
 package ubb.postuniv.riddingaddict.model.dto;
 
+import io.swagger.annotations.ApiModel;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,6 +13,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @Getter
 @EqualsAndHashCode
+@ApiModel(description = "Details about the product")
 public class ProductDTOResponse {
 
     private String productCode;

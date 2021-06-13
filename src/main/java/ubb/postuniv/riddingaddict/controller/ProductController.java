@@ -1,5 +1,6 @@
 package ubb.postuniv.riddingaddict.controller;
 
+import io.swagger.annotations.ApiParam;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -46,27 +47,27 @@ public class ProductController {
     }
 
     @GetMapping("/products/descByPrice")
-    public ResponseEntity<List<ProductDTORequest>> showProductsOrderedByPriceDesc() {
+    public ResponseEntity<List<ProductDTOResponse>> showProductsOrderedByPriceDesc() {
 
         List<Product> products = productService.getProductsOrderedByPriceDesc();
         log.info("getAllProductsOrderedByPriceDesc = {}", products);
 
-        return new ResponseEntity<>(productRequestMapper.convertModelsToDtos(products), HttpStatus.OK);
+        return new ResponseEntity<>(productResponseMapper.convertModelsToDtos(products), HttpStatus.OK);
     }
 
     @GetMapping("/products/categories/{category}")
-    public ResponseEntity<List<ProductDTORequest>> showProductsByCategory(@PathVariable String category) {
+    public ResponseEntity<List<ProductDTOResponse>> showProductsByCategory(@PathVariable String category) {
 
         categoryValidator.validate(category);
 
         List<Product> productsByCategory = productService.findProductByCategory(ProductCategory.valueOf(category.toUpperCase()));
         log.info("getProductsByCategory = {}", productsByCategory);
 
-        return new ResponseEntity<>(productRequestMapper.convertModelsToDtos(productsByCategory), HttpStatus.OK);
+        return new ResponseEntity<>(productResponseMapper.convertModelsToDtos(productsByCategory), HttpStatus.OK);
     }
 
     @GetMapping("/products/{productCode}")
-    public ResponseEntity<ProductDTOResponse> showOneProduct(@PathVariable String productCode) {
+    public ResponseEntity<ProductDTOResponse> showOneProduct(@ApiParam(value = "The product's unique identification code", required = true) @PathVariable String productCode) {
 
         Product product = productService.findOneProduct(productCode);
         log.info("productDto = {}", product);

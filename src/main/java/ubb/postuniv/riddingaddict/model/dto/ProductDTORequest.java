@@ -1,5 +1,6 @@
 package ubb.postuniv.riddingaddict.model.dto;
 
+import io.swagger.annotations.ApiModel;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -10,6 +11,7 @@ import ubb.postuniv.riddingaddict.model.enums.ProductCategory;
 @NoArgsConstructor
 @Getter
 @EqualsAndHashCode
+@ApiModel(description = "Details about the product")
 public class ProductDTORequest {
 
     private String name;

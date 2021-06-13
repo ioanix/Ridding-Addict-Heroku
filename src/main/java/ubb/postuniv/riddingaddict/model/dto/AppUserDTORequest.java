@@ -1,5 +1,6 @@
 package ubb.postuniv.riddingaddict.model.dto;
 
+import io.swagger.annotations.ApiModel;
 import lombok.*;
 import ubb.postuniv.riddingaddict.model.pojo.Role;
 
@@ -13,6 +14,7 @@ import java.util.Set;
 @Getter
 @Setter
 @ToString
+@ApiModel(description = "Details about the user")
 public class AppUserDTORequest {
 
     private String firstName;
