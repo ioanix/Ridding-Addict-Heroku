@@ -62,4 +62,11 @@ public class AppUser extends BaseEntity<Long> {
         this.products = products;
         this.roles = roles;
     }
+
+    public AppUser(String userCode, String username, String password, Set<Role> roles) {
+        this.userCode = userCode;
+        this.username = username;
+        this.password = password;
+        this.roles = roles;
+    }
 }
