@@ -1,21 +1,27 @@
 package ubb.postuniv.riddingaddict.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import ubb.postuniv.riddingaddict.exception.ItemNotFoundException;
 import ubb.postuniv.riddingaddict.exception.ShopException;
 import ubb.postuniv.riddingaddict.model.pojo.AppUser;
 import ubb.postuniv.riddingaddict.repository.AppUserRepository;
+import ubb.postuniv.riddingaddict.security.model.SecurityUser;
 
 import java.util.List;
 import java.util.Optional;
-
 
 @Service
 public class AppUserServiceImpl implements AppUserService {
 
     @Autowired
     private AppUserRepository appUserRepository;
+
+    @Autowired
+    private BCryptPasswordEncoder passwordEncoder;
 
 
     @Override
@@ -34,6 +40,7 @@ public class AppUserServiceImpl implements AppUserService {
             throw new ShopException("There is already an account registered with this username");
         }
 
+        appUser.setPassword(passwordEncoder.encode(appUser.getPassword()));
         appUserRepository.save(appUser);
     }
 
@@ -67,5 +74,25 @@ public class AppUserServiceImpl implements AppUserService {
         userFound.get().setRoles(user.getRoles());
 
         appUserRepository.save(userFound.get());
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String username) {
+
+        Optional<AppUser> optionalAppUser = appUserRepository.findByUsername(username);
+
+        if (!optionalAppUser.isPresent()) {
+
+            throw new UsernameNotFoundException("Could not find user");
+        }
+
+        return new SecurityUser(optionalAppUser.get());
+    }
+
+    @Override
+    public AppUser getUser(String userCode) {
+
+        return appUserRepository.findByUserCode(userCode).orElseThrow(() ->
+                new ItemNotFoundException("The user with code " + userCode + " could not be found"));
     }
 }

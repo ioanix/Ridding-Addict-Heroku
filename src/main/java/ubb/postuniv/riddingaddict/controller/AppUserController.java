@@ -66,4 +66,12 @@ public class AppUserController {
 
         appUserService.updateUser(appUserMapper.convertDtoToModel(appUserDTORequest), userCode);
     }
+
+    @GetMapping("/users/{userCode}")
+    public ResponseEntity<AppUserDTOResponse> getUser(@PathVariable String userCode) {
+
+        log.info("userCode = {}", userCode);
+
+        return new ResponseEntity<>(appUserResponseMapper.convertModelToDto(appUserService.getUser(userCode)), HttpStatus.OK);
+    }
 }

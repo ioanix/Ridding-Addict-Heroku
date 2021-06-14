@@ -3,8 +3,8 @@ package ubb.postuniv.riddingaddict.model.dto;
 import io.swagger.annotations.ApiModel;
 import lombok.*;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -12,8 +12,9 @@ import java.util.Set;
 @Setter
 @ToString
 @ApiModel(description = "Details about the order")
-public class OrderDTORequest {
+public class OrderDTO {
 
-    private Set<String> productCodes = new HashSet<>();
-    private CardDTO cardDto;
+    private List<ProductDTOResponse> products = new ArrayList<>();
+    private String customer;
+    private double totalAmountPaid = 0;
 }

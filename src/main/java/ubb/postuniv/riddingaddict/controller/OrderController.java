@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ubb.postuniv.riddingaddict.mapper.Mapper;
 import ubb.postuniv.riddingaddict.model.dto.CardDTO;
+import ubb.postuniv.riddingaddict.model.dto.OrderDTO;
 import ubb.postuniv.riddingaddict.model.dto.OrderDTORequest;
 import ubb.postuniv.riddingaddict.model.dto.OrderDTOResponse;
 import ubb.postuniv.riddingaddict.model.pojo.Card;
@@ -35,16 +36,19 @@ public class OrderController {
     private Mapper<Order, OrderDTORequest> orderRequestMapper;
 
     @Autowired
+    private Mapper<Order, OrderDTO> orderMapper;
+
+    @Autowired
     private Mapper<Card, CardDTO> cardMapper;
 
 
     @GetMapping("/orders")
-    public ResponseEntity<List<OrderDTOResponse>> getAllOrders() {
+    public ResponseEntity<List<OrderDTO>> getAllOrders() {
 
         List<Order> orders = orderService.getAll();
         log.info("orders = {}", orders);
 
-        return new ResponseEntity<>(orderResponseMapper.convertModelsToDtos(orders), HttpStatus.OK);
+        return new ResponseEntity<>(orderMapper.convertModelsToDtos(orders), HttpStatus.OK);
     }
 
     @PostMapping(value = "/orders/pay")

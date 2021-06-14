@@ -22,17 +22,12 @@ public class OrderRequestMapper extends AbstractMapper<Order, OrderDTORequest> {
         order.setProductCodes(orderDTORequest.getProductCodes());
         order.setCard(cardMapper.convertDtoToModel(orderDTORequest.getCardDto()));
 
-        AppUser appUser = new AppUser();
-        appUser.setUsername(orderDTORequest.getUsername());
-
-        order.setAppUser(appUser);
-
         return order;
     }
 
     @Override
     public OrderDTORequest convertModelToDto(Order order) {
 
-        return new OrderDTORequest(order.getProductCodes(), order.getAppUser().getUsername(), cardMapper.convertModelToDto(order.getCard()));
+        return new OrderDTORequest(order.getProductCodes(), cardMapper.convertModelToDto(order.getCard()));
     }
 }

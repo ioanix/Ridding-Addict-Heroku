@@ -1,6 +1,8 @@
 package ubb.postuniv.riddingaddict.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import ubb.postuniv.riddingaddict.exception.ItemNotFoundException;
 import ubb.postuniv.riddingaddict.exception.ShopException;
@@ -32,13 +34,23 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public Order finalizePurchase(Order order) {
 
-        findAndUpdateAppUser(order);
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        String username = authentication.getName();
+
+        AppUser appUser = appUserRepository.findByUsername(username).orElseThrow(() ->
+                new ItemNotFoundException("The user " + username + " was not found. Please register."));
+
+        order.setAppUser(appUser);
 
         List<Product> productList = order.getProductCodes().stream()
                 .map(code -> productRepository.findByProductCode(code).orElseThrow(() -> new ItemNotFoundException("The product with code " + code + " does not exist")))
                 .collect(Collectors.toList());
 
         order.setProducts(productList);
+
+        appUser.getProducts().addAll(order.getProducts());
+        appUserRepository.save(appUser);
 
         decreaseQuantity(productList);
 
@@ -48,17 +60,6 @@ public class OrderServiceImpl implements OrderService {
 
         return order;
     }
-
-    private void findAndUpdateAppUser(Order order) {
-
-        AppUser appUser = order.getAppUser();
-
-        Optional<AppUser> optionalCustomer = appUserRepository.findByUsername(appUser.getUsername());
-
-        optionalCustomer.ifPresentOrElse(order::setAppUser, () -> appUserRepository.save(appUser));
-
-    }
-
 
     private void decreaseQuantity(List<Product> productList) {
 

@@ -46,4 +46,9 @@ public abstract class Order extends BaseEntity<Long> {
         this.productCodes = productCodes;
         this.card = card;
     }
+
+    public Order(List<Product> products, AppUser appUser) {
+        this.products = products;
+        this.appUser = appUser;
+    }
 }
