@@ -28,10 +28,10 @@ import static org.mockito.Mockito.verify;
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class ProductServiceImplTest {
 
-    public static final String PRODUCT_NAME = "Cube";
-    public static final String PRODUCT_CODE = "p1abc";
-    public static final Double PRICE = 4000.00;
-    public static final Integer QUANTITY = 12;
+    private static final String PRODUCT_NAME = "Cube";
+    private static final String PRODUCT_CODE = "p1abc";
+    private static final Double PRICE = 4000.00;
+    private static final Integer QUANTITY = 12;
 
     @Mock
     private ProductRepository productRepositoryMock;

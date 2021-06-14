@@ -29,7 +29,6 @@ import static org.mockito.Mockito.verify;
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class AppUserServiceImplTest {
 
-
     private static final String USER_CODE = "ebs100";
     private static final String USERNAME = "johndoe";
     private static final String NEW_USERNAME = "johndoe";

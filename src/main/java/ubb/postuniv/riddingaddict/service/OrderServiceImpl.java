@@ -15,7 +15,6 @@ import ubb.postuniv.riddingaddict.repository.OrderRepository;
 import ubb.postuniv.riddingaddict.repository.ProductRepository;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -44,7 +43,8 @@ public class OrderServiceImpl implements OrderService {
         order.setAppUser(appUser);
 
         List<Product> productList = order.getProductCodes().stream()
-                .map(code -> productRepository.findByProductCode(code).orElseThrow(() -> new ItemNotFoundException("The product with code " + code + " does not exist")))
+                .map(code -> productRepository.findByProductCode(code).orElseThrow(() ->
+                        new ItemNotFoundException("The product with code " + code + " does not exist")))
                 .collect(Collectors.toList());
 
         order.setProducts(productList);

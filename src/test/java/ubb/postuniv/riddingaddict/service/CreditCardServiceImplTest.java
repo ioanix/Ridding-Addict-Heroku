@@ -25,10 +25,10 @@ class CreditCardServiceImplTest {
     private static final String INVALID_CARD_NUMBER = "1234432";
     private static final String VALID_CARD_NUMBER = "1234432111223344";
     private static final String MASKED_CARD_NUMBER = "1234********3344";
-    public static final String CARDHOLDER_NAME = "person1";
-    public static final String INVALID_CARDHOLDER_NAME = "p1";
-    public static final Integer CVV_CODE = 123;
-    public static final Integer INVALID_CVV_CODE = 12;
+    private static final String CARDHOLDER_NAME = "person1";
+    private static final String INVALID_CARDHOLDER_NAME = "p1";
+    private static final Integer CVV_CODE = 123;
+    private static final Integer INVALID_CVV_CODE = 12;
 
     @Mock
     private Validator<Card> cardValidatorMock;
