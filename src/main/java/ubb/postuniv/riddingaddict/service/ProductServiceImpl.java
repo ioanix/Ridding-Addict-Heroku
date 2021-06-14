@@ -27,7 +27,7 @@ public class ProductServiceImpl implements ProductService {
     public Product findOneProduct(String productCode) {
 
         Product product = productRepository.findByProductCode(productCode).orElseThrow(() ->
-                new ItemNotFoundException("The product id does not exist"));
+                new ItemNotFoundException("The product with code " + productCode + " does not exist"));
 
         return product;
     }
