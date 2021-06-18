@@ -5,6 +5,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.*;
 
 @Entity
@@ -31,15 +33,14 @@ public abstract class Order extends BaseEntity<Long> {
     @Column
     private double totalAmountPaid = 0;
 
-    @Temporal(TemporalType.TIMESTAMP)
     @Column(nullable = false)
-    private Date timestamp;
+    private LocalDateTime timestamp;
 
 
     @PrePersist
     private void onCreate() {
 
-        timestamp = new Date();
+        timestamp = LocalDateTime.now();
     }
 
     public Order(Set<String> productCodes, Card card) {

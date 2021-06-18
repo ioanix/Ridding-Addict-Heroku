@@ -10,6 +10,7 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import ubb.postuniv.riddingaddict.exception.ShopException;
+import ubb.postuniv.riddingaddict.security.model.AuthResponse;
 import ubb.postuniv.riddingaddict.security.model.SecurityUser;
 import ubb.postuniv.riddingaddict.security.model.UsernameAndPasswordAuthenticationRequest;
 
@@ -83,11 +84,13 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
                 .withIssuedAt(new Date())
                 .sign(Algorithm.HMAC512(SECRET.getBytes()));
 
-        String body = principal.getUsername() + "," +
-                principal.getAppUser().getFirstName() + "," +
-                principal.getAppUser().getLastName() + "," + token + "," + authoritiesList;
+        AuthResponse authResponse = new AuthResponse(token,
+                principal.getUsername(),
+                principal.getAppUser().getFirstName(),
+                principal.getAppUser().getLastName(),
+                authoritiesList);
 
-        res.getWriter().write(body);
+        res.getWriter().write(authResponse.toString());
 
         res.getWriter().flush();
     }
