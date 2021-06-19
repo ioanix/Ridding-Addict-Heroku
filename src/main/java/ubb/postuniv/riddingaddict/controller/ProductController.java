@@ -83,4 +83,20 @@ public class ProductController {
 
         return new ResponseEntity<>(productDtoRequest, HttpStatus.OK);
     }
+
+    @DeleteMapping("/products/{productCode}")
+    public void deleteProduct(@PathVariable String productCode){
+
+        productService.deleteProduct(productCode);
+    }
+
+    @PutMapping("/products/{productCode}")
+    public void updateProduct(@RequestBody ProductDTORequest productDtoRequest, @PathVariable String productCode){
+
+        log.info("productDto = {}", productDtoRequest);
+
+        categoryValidator.validate(productDtoRequest.getCategory().getProductCategory());
+
+        productService.updateProduct(productRequestMapper.convertDtoToModel(productDtoRequest), productCode);
+    }
 }

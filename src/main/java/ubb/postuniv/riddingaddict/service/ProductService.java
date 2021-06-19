@@ -16,4 +16,8 @@ public interface ProductService {
     List<Product> getProductsOrderedByPriceDesc();
 
     List<Product> findProductByCategory(ProductCategory category);
+
+    void deleteProduct(String productCode);
+
+    void updateProduct(Product product, String productCode);
 }
