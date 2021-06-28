@@ -94,4 +94,10 @@ public class ProductServiceImpl implements ProductService {
 
         productRepository.save(existingProduct);
     }
+
+    @Override
+    public List<String> getProductCodes() {
+
+        return productRepository.findProductCodes();
+    }
 }

@@ -4,6 +4,8 @@ import org.springframework.stereotype.Component;
 import ubb.postuniv.riddingaddict.model.dto.AppUserDTORequest;
 import ubb.postuniv.riddingaddict.model.pojo.AppUser;
 
+import java.util.Collections;
+
 @Component
 public class AppUserRequestMapper extends AbstractMapper<AppUser, AppUserDTORequest> {
 
@@ -16,7 +18,7 @@ public class AppUserRequestMapper extends AbstractMapper<AppUser, AppUserDTORequ
                 appUserDTORequest.getUsername(),
                 appUserDTORequest.getEmail(),
                 appUserDTORequest.getPassword(),
-                appUserDTORequest.getRoles());
+                Collections.singleton(appUserDTORequest.getRole()));
     }
 
     @Override
@@ -27,6 +29,6 @@ public class AppUserRequestMapper extends AbstractMapper<AppUser, AppUserDTORequ
                 appUser.getUsername(),
                 appUser.getEmail(),
                 appUser.getPassword(),
-                appUser.getRoles());
+                appUser.getRoles().stream().findFirst().orElseThrow());
     }
 }

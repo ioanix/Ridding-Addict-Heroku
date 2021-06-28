@@ -1,5 +1,6 @@
 package ubb.postuniv.riddingaddict.service;
 
+import org.springframework.http.ResponseEntity;
 import ubb.postuniv.riddingaddict.model.enums.ProductCategory;
 import ubb.postuniv.riddingaddict.model.pojo.Product;
 
@@ -20,4 +21,6 @@ public interface ProductService {
     void deleteProduct(String productCode);
 
     void updateProduct(Product product, String productCode);
+
+    List<String> getProductCodes();
 }

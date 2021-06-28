@@ -75,6 +75,12 @@ public class ProductController {
         return new ResponseEntity<>(productResponseMapper.convertModelToDto(product), HttpStatus.OK);
     }
 
+    @GetMapping("/productCodes")
+    public ResponseEntity<List<String>> showProductCodes() {
+
+        return new ResponseEntity<>(productService.getProductCodes(), HttpStatus.OK);
+    }
+
     @PostMapping("/products")
     public ResponseEntity<ProductDTORequest> addProduct(@RequestBody ProductDTORequest productDtoRequest) {
 

@@ -23,4 +23,7 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 
     List<Product> findByCategory(ProductCategory category);
 
+    @Query("select p.productCode from Product p")
+    List<String> findProductCodes();
+
 }

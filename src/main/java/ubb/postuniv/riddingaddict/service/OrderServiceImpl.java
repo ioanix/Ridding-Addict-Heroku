@@ -93,6 +93,13 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public List<Order> getAll() {
 
-        return orderRepository.findAll();
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        String username = authentication.getName();
+
+        AppUser appUser = appUserRepository.findByUsername(username).orElseThrow(() ->
+                new ItemNotFoundException("The user " + username + " was not found. Please register."));
+
+        return appUser.getOrders();
     }
 }
