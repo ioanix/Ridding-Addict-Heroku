@@ -8,6 +8,10 @@ import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import ubb.postuniv.riddingaddict.exception.ItemNotFoundException;
 import ubb.postuniv.riddingaddict.model.enums.BikeType;
 import ubb.postuniv.riddingaddict.model.enums.ProductCategory;
@@ -41,6 +45,7 @@ class ProductServiceImplTest {
 
     private Product bike;
     private List<Product> productList;
+    private PageRequest pageable;
 
 
     @BeforeAll
@@ -50,6 +55,8 @@ class ProductServiceImplTest {
         bike.setProductCode(PRODUCT_CODE);
 
         productList = Collections.singletonList(bike);
+
+        pageable = PageRequest.of(0, 2, Sort.Direction.DESC, "price");
     }
 
     @Test
@@ -109,15 +116,14 @@ class ProductServiceImplTest {
     void canGetProductsOrderedByPriceDesc() {
 
         //when
-        underTest.getProductsOrderedByPriceDesc();
+        underTest.getProductsOrderedByPriceDesc(pageable);
 
         //then
-        verify(productRepositoryMock).findAllByOrderByPriceDesc();
+        verify(productRepositoryMock).findAllByOrderByPriceDesc(pageable);
     }
 
     @Test
     void canFindProductByCategory() {
-
 
         //given
         given(productRepositoryMock.findByCategory(ProductCategory.BIKE)).willReturn(productList);
