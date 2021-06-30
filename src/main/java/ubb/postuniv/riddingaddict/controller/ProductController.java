@@ -12,6 +12,7 @@ import ubb.postuniv.riddingaddict.model.dto.ProductDTORequest;
 import ubb.postuniv.riddingaddict.model.dto.ProductDTOResponse;
 import ubb.postuniv.riddingaddict.model.enums.ProductCategory;
 import ubb.postuniv.riddingaddict.model.pojo.Product;
+import ubb.postuniv.riddingaddict.model.pojo.ProductCodeAndNameViewModel;
 import ubb.postuniv.riddingaddict.model.validator.Validator;
 import ubb.postuniv.riddingaddict.service.ProductService;
 
@@ -75,10 +76,10 @@ public class ProductController {
         return new ResponseEntity<>(productResponseMapper.convertModelToDto(product), HttpStatus.OK);
     }
 
-    @GetMapping("/productCodes")
-    public ResponseEntity<List<String>> showProductCodes() {
+    @GetMapping("/productCodesAndNames")
+    public ResponseEntity<List<ProductCodeAndNameViewModel>> showProductCodes() {
 
-        return new ResponseEntity<>(productService.getProductCodes(), HttpStatus.OK);
+        return new ResponseEntity<>(productService.getProductCodesAndNames(), HttpStatus.OK);
     }
 
     @PostMapping("/products")

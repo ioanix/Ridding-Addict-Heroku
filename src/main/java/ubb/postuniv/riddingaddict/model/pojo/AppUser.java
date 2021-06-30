@@ -28,7 +28,8 @@ public class AppUser extends BaseEntity<Long> {
     @Transient
     private List<Card> creditCards = new ArrayList<>();
 
-    @OneToMany
+    //@OneToMany
+    @Transient
     List<Product> products = new ArrayList<>();
 
     @OneToMany(mappedBy = "appUser", cascade = CascadeType.ALL)

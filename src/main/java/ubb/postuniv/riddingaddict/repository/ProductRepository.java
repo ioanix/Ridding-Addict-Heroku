@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import ubb.postuniv.riddingaddict.model.enums.ProductCategory;
 import ubb.postuniv.riddingaddict.model.pojo.Product;
+import ubb.postuniv.riddingaddict.model.pojo.ProductCodeAndNameViewModel;
 
 import javax.transaction.Transactional;
 import java.util.List;
@@ -23,7 +24,7 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 
     List<Product> findByCategory(ProductCategory category);
 
-    @Query("select p.productCode from Product p")
-    List<String> findProductCodes();
+//    @Query("select p.productCode, p.name from Product p")
+//    List<ProductCodeAndNameViewModel> findProductCodesAndNames();
 
 }

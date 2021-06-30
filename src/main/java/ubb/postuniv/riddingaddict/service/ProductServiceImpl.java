@@ -7,9 +7,11 @@ import ubb.postuniv.riddingaddict.model.enums.ProductCategory;
 import ubb.postuniv.riddingaddict.model.pojo.Accessory;
 import ubb.postuniv.riddingaddict.model.pojo.Bike;
 import ubb.postuniv.riddingaddict.model.pojo.Product;
+import ubb.postuniv.riddingaddict.model.pojo.ProductCodeAndNameViewModel;
 import ubb.postuniv.riddingaddict.repository.ProductRepository;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -96,8 +98,16 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<String> getProductCodes() {
+    public List<ProductCodeAndNameViewModel> getProductCodesAndNames() {
 
-        return productRepository.findProductCodes();
+        List<Product> products = getAll();
+        List<ProductCodeAndNameViewModel> productCodeAndNameList = new ArrayList<>();
+
+        products.forEach(product -> {
+            ProductCodeAndNameViewModel p = new ProductCodeAndNameViewModel(product.getProductCode(), product.getName());
+            productCodeAndNameList.add(p);
+        });
+
+        return productCodeAndNameList;
     }
 }
