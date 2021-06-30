@@ -92,13 +92,13 @@ public class ProductController {
     }
 
     @DeleteMapping("/products/{productCode}")
-    public void deleteProduct(@PathVariable String productCode){
+    public void deleteProduct(@PathVariable String productCode) {
 
         productService.deleteProduct(productCode);
     }
 
     @PutMapping("/products/{productCode}")
-    public void updateProduct(@RequestBody ProductDTORequest productDtoRequest, @PathVariable String productCode){
+    public void updateProduct(@RequestBody ProductDTORequest productDtoRequest, @PathVariable String productCode) {
 
         log.info("productDto = {}", productDtoRequest);
 
