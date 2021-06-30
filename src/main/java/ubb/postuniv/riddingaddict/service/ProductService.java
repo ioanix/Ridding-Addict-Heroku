@@ -1,5 +1,6 @@
 package ubb.postuniv.riddingaddict.service;
 
+import org.springframework.data.domain.PageRequest;
 import ubb.postuniv.riddingaddict.model.enums.ProductCategory;
 import ubb.postuniv.riddingaddict.model.pojo.Product;
 import ubb.postuniv.riddingaddict.model.pojo.ProductCodeAndNameViewModel;
@@ -14,7 +15,7 @@ public interface ProductService {
 
     List<Product> getAll();
 
-    List<Product> getProductsOrderedByPriceDesc();
+    List<Product> getProductsOrderedByPriceDesc(PageRequest pageRequest);
 
     List<Product> findProductByCategory(ProductCategory category);
 

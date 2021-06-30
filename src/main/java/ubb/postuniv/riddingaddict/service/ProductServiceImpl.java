@@ -1,6 +1,7 @@
 package ubb.postuniv.riddingaddict.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import ubb.postuniv.riddingaddict.exception.ItemNotFoundException;
 import ubb.postuniv.riddingaddict.model.enums.ProductCategory;
@@ -44,9 +45,9 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<Product> getProductsOrderedByPriceDesc() {
+    public List<Product> getProductsOrderedByPriceDesc(PageRequest pageRequest) {
 
-        return productRepository.findAllByOrderByPriceDesc();
+        return productRepository.findAllByOrderByPriceDesc(pageRequest);
     }
 
     @Override

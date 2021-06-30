@@ -4,6 +4,8 @@ import io.swagger.annotations.ApiParam;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -50,7 +52,7 @@ public class ProductController {
     @GetMapping("/products/descByPrice")
     public ResponseEntity<List<ProductDTOResponse>> showProductsOrderedByPriceDesc() {
 
-        List<Product> products = productService.getProductsOrderedByPriceDesc();
+        List<Product> products = productService.getProductsOrderedByPriceDesc(PageRequest.of(0, 2, Sort.Direction.DESC, "price"));
         log.info("getAllProductsOrderedByPriceDesc = {}", products);
 
         return new ResponseEntity<>(productResponseMapper.convertModelsToDtos(products), HttpStatus.OK);

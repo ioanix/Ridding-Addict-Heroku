@@ -1,5 +1,6 @@
 package ubb.postuniv.riddingaddict.repository;
 
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -20,11 +21,9 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     @Query("update Product p set p.quantity = ?1 where p.id = ?2")
     void updateQuantity(int quantity, Long id);
 
-    List<Product> findAllByOrderByPriceDesc();
+    List<Product> findAllByOrderByPriceDesc(Pageable pageable);
 
     List<Product> findByCategory(ProductCategory category);
 
-//    @Query("select p.productCode, p.name from Product p")
-//    List<ProductCodeAndNameViewModel> findProductCodesAndNames();
 
 }
