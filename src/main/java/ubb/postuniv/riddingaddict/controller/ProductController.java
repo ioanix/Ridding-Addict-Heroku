@@ -52,7 +52,7 @@ public class ProductController {
     @GetMapping("/products/descByPrice")
     public ResponseEntity<List<ProductDTOResponse>> showProductsOrderedByPriceDesc() {
 
-        List<Product> products = productService.getProductsOrderedByPriceDesc(PageRequest.of(0, 2, Sort.Direction.DESC, "price"));
+        List<Product> products = productService.getProductsOrderedByPriceDesc(PageRequest.of(0, 9, Sort.Direction.DESC, "price"));
         log.info("getAllProductsOrderedByPriceDesc = {}", products);
 
         return new ResponseEntity<>(productResponseMapper.convertModelsToDtos(products), HttpStatus.OK);

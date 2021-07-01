@@ -2,6 +2,7 @@ package ubb.postuniv.riddingaddict.model.pojo;
 
 
 import ubb.postuniv.riddingaddict.exception.ItemNotFoundException;
+import ubb.postuniv.riddingaddict.exception.ShopException;
 import ubb.postuniv.riddingaddict.model.enums.AccessoryType;
 import ubb.postuniv.riddingaddict.model.enums.BikeType;
 import ubb.postuniv.riddingaddict.model.enums.ProductCategory;
@@ -14,6 +15,10 @@ public class ProductFactory {
 
     public static Product getProductRequest(ProductCategory category, String name, double price, int quantity, String shortDescription, BikeType bikeType, AccessoryType accessoryType) {
 
+        if(category == null) {
+
+            throw new ShopException("You must provide the category");
+        }
         switch (category) {
 
             case BIKE:
