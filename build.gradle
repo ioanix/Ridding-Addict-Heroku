@@ -3,15 +3,13 @@ plugins {
     id 'io.spring.dependency-management' version '1.0.11.RELEASE'
     id 'java'
 }
+apply plugin: 'java'
 
-//jar {
-//    manifest {
-//        attributes(
-//
-//                'Main-Class': 'java.ubb.postuniv.riddingaddict.RiddingAddictApplication'
-//        )
-//    }
-//}
+jar {
+    manifest {
+        attributes 'Main-Class': 'ubb.postuniv.riddingaddict.RiddingAddictApplication'
+    }
+}
 
 group = 'ubb.postuniv'
 version = '0.0.1-SNAPSHOT'
