@@ -4,6 +4,15 @@ plugins {
     id 'java'
 }
 
+jar {
+    manifest {
+        attributes(
+
+                'Main-Class': 'ubb/postuniv/riddingaddict/RiddingAddictApplication.java'
+        )
+    }
+}
+
 group = 'ubb.postuniv'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '11'
